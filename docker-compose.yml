@@ -1,0 +1,41 @@
+version: '3'
+volumes: 
+  db_volume:
+networks: 
+  twist:
+services: 
+  db:
+    image: mysql:8.0.26
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tweet-db
+      MYSQL_USER: twist
+      MYSQL_PASSWORD: twist
+      TZ: 'Asia/Tokyo'
+    volumes: 
+      - db_volume:/var/lib/mysql
+    networks: 
+      - twist
+  app:
+    build:
+      context: backend
+      dockerfile: docker/app/Dockerfile
+    restart: always
+    volumes: 
+      - ./backend/src/app:/app/src
+    networks: 
+      - twist
+    working_dir: '/app/src/'
+    stdin_open: true
+    tty: true
+    depends_on: 
+      - db
+  web:
+    build: 
+      context: backend
+      dockerfile: docker/web/Dockerfile
+    restart: always
+    volumes: 
+      - ./backend/src/web:/app/src
+    ports:
+      - 3000:3000

@@ -1,0 +1,4 @@
+sqlalchemy
+mysqlclient
+marshmallow-sqlalchemy
+mysql-connector-python
