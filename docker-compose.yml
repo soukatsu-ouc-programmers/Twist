@@ -1,21 +1,38 @@
 version: '3'
 volumes: 
-  db_volume:
+  mongo-db:
+  mongo-configdb:
 networks: 
   twist:
 services: 
   db:
-    image: mysql:8.0.26
+    image: mongo
+    restart: always
     environment: 
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: tweet-db
-      MYSQL_USER: twist
-      MYSQL_PASSWORD: twist
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: tweet_db
       TZ: 'Asia/Tokyo'
-    volumes: 
-      - db_volume:/var/lib/mysql
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-db:/data/db
+      - mongo-configdb:/data/configdb
     networks: 
       - twist
+  db-admin:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - db
+    networks:
+      - twist
+    environment:
+      ME_CONFIG_MONGODB_SERVER: db
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
   app:
     build:
       context: backend
@@ -25,6 +42,12 @@ services:
       - ./backend/src/app:/app/src
     networks: 
       - twist
+    environment:
+      TZ: Asia/Tokyo
+      MONGO_DB_HOST: db
+      MONGO_DB_DATABASE: tweet_db
+      MONGO_DB_USERNAME: root
+      MONGO_DB_PASSWORD: example
     working_dir: '/app/src/'
     stdin_open: true
     tty: true
@@ -35,7 +58,17 @@ services:
       context: backend
       dockerfile: docker/web/Dockerfile
     restart: always
+    tty: true
+    stdin_open: true
     volumes: 
       - ./backend/src/web:/app/src
+    networks: 
+      - twist
+    environment:
+      TZ: Asia/Tokyo
+      MONGO_DB_HOST: db
+      MONGO_DB_DATABASE: tweet_db
+      MONGO_DB_USERNAME: root
+      MONGO_DB_PASSWORD: example
     ports:
-      - 3000:3000
+      - 3001:3000
