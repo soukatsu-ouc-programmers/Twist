@@ -72,3 +72,13 @@ services:
       MONGO_DB_PASSWORD: example
     ports:
       - 3001:3000
+  frontend:
+    build: 
+      context: frontend
+    restart: always
+    ports: 
+      - 3002:3000
+    volumes: 
+      - ./frontend/src:/app/src
+    stdin_open: true
+    tty: true
