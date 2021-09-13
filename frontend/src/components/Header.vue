@@ -1,6 +1,6 @@
 <template>
   <b-navbar toggleable="lg" type="dark" class="header">
-    <b-navbar-brand href="#">
+    <b-navbar-brand to="/">
       技育祭おまとめさん
     </b-navbar-brand>
     <b-navbar-nav class="ml-auto">
