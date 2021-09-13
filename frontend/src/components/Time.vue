@@ -1,9 +1,6 @@
 <template>
   <div>
-    <p>
-      {{ since }}<br>
-      {{ until }}
-    </p>
+    <p v-text="since+'\n'+until" />
   </div>
 </template>
 
