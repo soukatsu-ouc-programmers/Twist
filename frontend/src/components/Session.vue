@@ -1,20 +1,20 @@
 <template>
   <div class="session-block" @click="$router.push('/tweet')">
     <div class="session-text">
-      <h4>
-        <p to="/tweet">
-          セッションタイトル
-        </p>
-      </h4>
-      <p to="/tweet" class="speaker">
-        講演者
-      </p>
+      <h4 to="/tweet" v-text="info.sessionTitle" />
+      <p to="/tweet" class="speaker" v-text="info.sessionSpeaker" />
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    info: {
+      type: Object,
+      default: () => ({ sessionTitle: '未登録', sessionSpeaker: '未登録' })
+    }
+  }
 }
 </script>
 

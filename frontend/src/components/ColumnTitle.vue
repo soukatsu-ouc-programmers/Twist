@@ -1,8 +1,19 @@
 <template>
   <div>
-    <h3>ルーム名</h3>
+    <h3 v-text="name" />
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    name: {
+      type: String,
+      default: ''
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   h3{

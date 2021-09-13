@@ -1,30 +1,59 @@
 <template>
   <div>
     <h1 class="page-title">
-      ページ名
+      {{ title }}
     </h1>
     <table>
       <thead>
         <tr>
           <td />
-          <td>
-            <ColumnTitle />
+          <td v-for="room in rooms" :key="room">
+            <ColumnTitle :name="room" />
           </td>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr v-for="period in periods" :key="period.since">
           <td>
-            <Time :since="'10:00'" :until="'11:00'" />
+            <Time :since="period.since" :until="period.until" />
           </td>
-          <td class="session-cell">
-            <Session />
+          <td v-for="room in rooms" :key="room" class="session-cell">
+            <Session :info="sessionFilter(room, period.since)" />
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
+
+<script>
+import setting from '../assets/settings/timetable.json'
+
+export default {
+  data () {
+    return {
+      title: '',
+      sessions: [],
+      rooms: [],
+      periods: []
+    }
+  },
+  mounted () {
+    this.init()
+  },
+  methods: {
+    init () {
+      this.title = setting.day
+      this.sessions = setting.sessions
+      this.rooms = setting.rooms
+      this.periods = setting.periods
+    },
+    sessionFilter (room, since) {
+      return this.sessions.filter(session => (session.room === room && session.since === since))[0]
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   .page-title{
@@ -40,7 +69,3 @@
     white-space: pre-wrap;
   }
 </style>
-
-<script>
-export default {}
-</script>
