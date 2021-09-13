@@ -1,5 +1,9 @@
 <template>
-  <h1>tweet</h1>
+  <div>
+    <SessionTitle />
+    <SessionInfo />
+    <TweetView />
+  </div>
 </template>
 
 <script>
