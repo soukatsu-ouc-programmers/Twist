@@ -1,12 +1,15 @@
 <template>
   <div id="tweet-list">
-    <h3>a</h3>
+    <Tweet :id="'1435847868061925381'" />
   </div>
 </template>
 
 <script>
+import { Tweet } from 'vue-tweet-embed'
 export default {
-
+  components: {
+    Tweet
+  }
 }
 </script>
 
