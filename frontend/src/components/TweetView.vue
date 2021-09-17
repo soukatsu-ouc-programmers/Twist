@@ -13,7 +13,7 @@ export default {
     Tweet
   },
   created () {
-    this.fetchTweet()
+    // this.fetchTweet()
   },
   methods: {
     async fetchTweet () {
@@ -40,5 +40,12 @@ div#tweet-list{
   background: $base-color;
   box-shadow: inset 6px 6px 7px $shadow-color,
               inset -6px -6px 7px $highlight-color;
+}
+</style>
+
+<style>
+.twitter-tweet{
+  margin-right: auto;
+  margin-left: auto;
 }
 </style>

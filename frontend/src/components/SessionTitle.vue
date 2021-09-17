@@ -32,8 +32,8 @@ export default {
     text-align: center;
     border-radius: 36px;
     background: $base-color;
-    box-shadow: inset 6px 6px 7px $shadow-color,
-                inset -6px -6px 7px $highlight-color;
+    box-shadow: 9px 9px 13px $shadow-color,
+                -9px -9px 13px $highlight-color;
     .session-text{
       pointer-events: none;
       white-space: pre-wrap;
