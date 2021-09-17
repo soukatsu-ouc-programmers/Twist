@@ -9,6 +9,18 @@ import { Tweet } from 'vue-tweet-embed'
 export default {
   components: {
     Tweet
+  },
+  created () {
+    this.fetchTweet()
+  },
+  methods: {
+    async fetchTweet () {
+      const res = await this.$axios.get('http://localhost:3001/get-tweet/test/')
+      // プロキシのつなぎ方わかんね～～～～
+      // const res = await this.$axios.get('/api/get-tweet/test')
+      this.tweets = res.data
+      console.log(this.tweets)
+    }
   }
 }
 </script>
