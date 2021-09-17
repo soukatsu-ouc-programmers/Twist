@@ -8,18 +8,18 @@
         <thead>
           <tr>
             <td />
-            <td v-for="room in rooms" :key="room">
+            <td v-for="room, roomIndex in rooms" :key="roomIndex">
               <ColumnTitle :name="room" />
             </td>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="period, index in periods" :key="period.since">
+          <tr v-for="period, periodIndex in periods" :key="period.since">
             <td>
               <Time :since="period.since" :until="period.until" />
             </td>
-            <td v-for="room in rooms" :key="room" class="session-cell">
-              <Session :info="sessionFilter(room, period.since)" @move="moveTweetPage(room, index)" />
+            <td v-for="room, roomIndex in rooms" :key="roomIndex" class="session-cell">
+              <Session :info="sessionFilter(room, period.since)" @move="moveTweetPage(room, periodIndex)" />
             </td>
           </tr>
         </tbody>
