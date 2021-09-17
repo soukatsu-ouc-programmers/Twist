@@ -2,8 +2,8 @@
   <div>
     <div class="session-title">
       <div class="session-text">
-        <h4 v-text="'title'" />
-        <p v-text="'講演者'" />
+        <h4 v-text="title" />
+        <p v-text="speaker" />
       </div>
     </div>
   </div>
@@ -11,7 +11,16 @@
 
 <script>
 export default {
-
+  props: {
+    title: {
+      type: String,
+      default: () => ''
+    },
+    speaker: {
+      type: String,
+      default: () => ''
+    }
+  }
 }
 </script>
 

@@ -1,8 +1,13 @@
 <template>
-  <div class="session-block" @click="$router.push('/tweet')">
+  <div v-if="info.sessionTitle != '未登録'" class="session-block" :style="{cursor: 'pointer'}" @click="$emit('move')">
     <div class="session-text">
-      <h4 to="/tweet" v-text="info.sessionTitle" />
-      <p to="/tweet" class="speaker" v-text="info.sessionSpeaker" />
+      <h4 v-text="info.sessionTitle" />
+      <p class="speaker" v-text="info.sessionSpeaker" />
+    </div>
+  </div>
+  <div v-else class="session-block">
+    <div class="session-text">
+      <h4 v-text="'未登録'" />
     </div>
   </div>
 </template>
@@ -21,10 +26,9 @@ export default {
 <style lang="scss" scoped>
   .session-block{
     display: table-cell;
-    width: 298px;
+    min-width: 298px;
     margin: 10px auto;
     padding: 40px 5px 0 5px;
-    cursor: pointer;
     text-align: center;
     height: 200px;
     border-radius: 36px;

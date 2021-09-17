@@ -1,6 +1,8 @@
 <template>
   <div id="tweet-list">
-    <Tweet :id="'1435847868061925381'" />
+    <Tweet :id="'1435847868061925381'">
+      <b-spinner variant="primary" />
+    </Tweet>
   </div>
 </template>
 

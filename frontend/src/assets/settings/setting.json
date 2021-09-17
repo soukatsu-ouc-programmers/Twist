@@ -1,5 +1,12 @@
 {
     "eventName": "テストイベント",
+    "homePage": "https://talent.supporterz.jp/geeksai/2021/",
+    "mainColor": "#3da9fc",
     "hashTag": "#test",
-    "sessionInfo": ["timetable.csv"]    
+    "sessionInfo": [
+        {
+            "name": "Day1",
+            "file": "timetable.csv"
+        }
+    ]
 }

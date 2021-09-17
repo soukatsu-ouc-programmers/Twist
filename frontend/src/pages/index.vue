@@ -3,26 +3,28 @@
     <h1 class="page-title">
       {{ title }}
     </h1>
-    <table>
-      <thead>
-        <tr>
-          <td />
-          <td v-for="room in rooms" :key="room">
-            <ColumnTitle :name="room" />
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="period in periods" :key="period.since">
-          <td>
-            <Time :since="period.since" :until="period.until" />
-          </td>
-          <td v-for="room in rooms" :key="room" class="session-cell">
-            <Session :info="sessionFilter(room, period.since)" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <td />
+            <td v-for="room in rooms" :key="room">
+              <ColumnTitle :name="room" />
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="period, index in periods" :key="period.since">
+            <td>
+              <Time :since="period.since" :until="period.until" />
+            </td>
+            <td v-for="room in rooms" :key="room" class="session-cell">
+              <Session :info="sessionFilter(room, period.since)" @move="moveTweetPage(room, index)" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -43,13 +45,16 @@ export default {
   },
   methods: {
     init () {
-      this.title = setting.day
+      this.title = setting.pageTitle
       this.sessions = setting.sessions
       this.rooms = setting.rooms
       this.periods = setting.periods
     },
     sessionFilter (room, since) {
-      return this.sessions.filter(session => (session.room === room && session.since === since))[0]
+      return this.sessions.filter(session => (session.room === room && session.period.since === since))[0]
+    },
+    moveTweetPage (room, periodIndex) {
+      this.$router.push(`/${room}/${periodIndex}`)
     }
   }
 }
@@ -60,6 +65,21 @@ export default {
     margin-top: 2rem;
     margin-bottom: 2rem;
     margin-left: 2rem;
+  }
+  .table-wrap{
+    overflow-x: auto;
+    white-space: nowrap;
+    &::-webkit-scrollbar{
+      height: 5px;
+    }
+    &::-webkit-scrollbar-track{
+      border-radius: 5px;
+      box-shadow: 0 0 4px #aaa inset;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background: $main-color;
+    }
   }
   table{
     margin: 0 0 275px 0;

@@ -1,14 +1,21 @@
 <template>
   <div>
-    <h3 id="hash-tag" v-text="'#ルームA'" />
-    <h3 id="period" v-text="'10:00～11:00'" />
+    <h3 id="hash-tag" v-text="hashTag" />
+    <h3 id="period" v-text="`${period.since}～${period.until}`" />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-
+    hashTag: {
+      type: String,
+      default: () => ''
+    },
+    period: {
+      type: Object,
+      default: () => ({ since: '', until: '' })
+    }
   }
 }
 </script>
