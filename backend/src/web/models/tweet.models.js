@@ -7,14 +7,8 @@ const tweetSchema = new Schema({
     hashtag: [String]
 })
 
-const testSchema = new Schema({
-    name: String,
-    age: Number,
-    tag: [String]
-})
-
-testSchema.virtual('str_id').get(() => {
+tweetSchema.virtual('str_id').get(() => {
     return String(this._id)
 })
 
-module.exports = mongoose.model('Test', testSchema)
+module.exports = mongoose.model('Tweet', tweetSchema)
