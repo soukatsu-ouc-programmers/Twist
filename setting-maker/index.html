@@ -166,6 +166,7 @@
           const obj = {
             eventName: this.eventName,
             mainHashtag: this.mainHashtag,
+            homePage: this.homePage,
             dates: mod_dates
           }
           this.dlPath = URL.createObjectURL(new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' }))
