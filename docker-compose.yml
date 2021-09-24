@@ -10,7 +10,7 @@ services:
     restart: always
     environment: 
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_ROOT_PASSWORD
       MONGO_INITDB_DATABASE: tweet_db
       TZ: 'Asia/Tokyo'
     ports:
@@ -32,7 +32,7 @@ services:
     environment:
       ME_CONFIG_MONGODB_SERVER: db
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_ROOT_PASSWORD
   app:
     build:
       context: backend
@@ -47,7 +47,7 @@ services:
       MONGO_DB_HOST: db
       MONGO_DB_DATABASE: tweet_db
       MONGO_DB_USERNAME: root
-      MONGO_DB_PASSWORD: example
+      MONGO_DB_PASSWORD: $MONGO_ROOT_PASSWORD
     working_dir: '/app/src/'
     stdin_open: true
     tty: true
@@ -69,7 +69,7 @@ services:
       MONGO_DB_HOST: db
       MONGO_DB_DATABASE: tweet_db
       MONGO_DB_USERNAME: root
-      MONGO_DB_PASSWORD: example
+      MONGO_DB_PASSWORD: $MONGO_ROOT_PASSWORD
     ports:
       - 3001:3000
   frontend:
