@@ -4,11 +4,19 @@ ENV HOST 0.0.0.0
 
 WORKDIR /app/src
 
+COPY ./frontend/src /app/src
 # COPY ./src/package.json /app/src/
 
 RUN apk update
 # RUN apt-get update
 # RUN apt-get update && \
-    # yarn install
+# yarn install
 
-CMD [ "yarn", "dev" ]
+COPY ./settings.json /app
+COPY ./frontend/settingParser.js /app
+# RUN node /app/settingParser.js
+
+COPY ./frontend/setup.sh /app/setup.sh
+RUN chmod 755 /app/setup.sh
+
+CMD [ "/app/setup.sh" ]
