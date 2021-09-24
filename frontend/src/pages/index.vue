@@ -8,7 +8,7 @@
         <thead>
           <tr>
             <td />
-            <td v-for="room, roomIndex in rooms" :key="roomIndex">
+            <td v-for="room, roomIndex in rooms" :key="roomIndex" :style="{color: colors[roomIndex%colors.length]}">
               <ColumnTitle :name="room" />
             </td>
           </tr>
@@ -16,9 +16,9 @@
         <tbody>
           <tr v-for="period, periodIndex in periods" :key="period.since">
             <td>
-              <Time :since="period.since" :until="period.until" />
+              <Time :since="period.since" :until="period.until" class="time" />
             </td>
-            <td v-for="room, roomIndex in rooms" :key="roomIndex" class="session-cell">
+            <td v-for="room, roomIndex in rooms" :key="roomIndex" class="session-cell" :style="{color: colors[roomIndex%colors.length]}">
               <Session :info="sessionFilter(room, period.since)" @move="moveTweetPage(room, periodIndex)" />
             </td>
           </tr>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import setting from '../assets/settings/timetable.json'
+import setting from '../assets/settings/Day1.json'
 
 export default {
   data () {
@@ -37,7 +37,8 @@ export default {
       title: '',
       sessions: [],
       rooms: [],
-      periods: []
+      periods: [],
+      colors: ['#6fa0e9', '#de6769', '#95c380', '#c17ca0', '#c58f69']
     }
   },
   mounted () {
@@ -65,6 +66,7 @@ export default {
     margin-top: 2rem;
     margin-bottom: 2rem;
     margin-left: 2rem;
+    color: $main-color
   }
   .table-wrap{
     overflow-x: auto;
@@ -87,5 +89,8 @@ export default {
   td{
     padding: 10px 20px;
     white-space: pre-wrap;
+  }
+  .time{
+    color: $main-color;
   }
 </style>

@@ -26,7 +26,7 @@ export default {
 <style lang="scss" scoped>
   .session-block{
     display: table-cell;
-    min-width: 298px;
+    width: 298px;
     margin: 10px auto;
     padding: 40px 5px 0 5px;
     text-align: center;
