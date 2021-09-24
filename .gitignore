@@ -116,4 +116,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
 backend/src/app/auth_info.json
+# 設定ファイル無視
+/*.json
