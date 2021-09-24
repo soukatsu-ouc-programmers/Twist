@@ -20,6 +20,8 @@
   <div id="app" class="container-fluid">
     <button class="btn btn-success my-2" v-on:click="makeDLData">設定ファイル作成</button>
     <a v-bind:href="dlPath" download="settings.json" class="btn btn-secondary" v-if="dlPath != ''">設定ファイルDL</a>
+    <h1><input type="text" v-model="eventName"></h1>
+    <h2><input type="text" v-model="mainHashtag"></h2>
     <div v-for="date, dateIndex in dates">
       <h2><input type="text" v-model="date.pageTitle"></h2>
       <p><input type="date" v-model="date.date"></p>
@@ -77,8 +79,8 @@
     let app = new Vue({
       el: '#app',
       data: {
-        eventName: '',
-        mainHashtag: '',
+        eventName: 'イベント名',
+        mainHashtag: '#ハッシュタグ',
         dates: [
           {
             date: '2021-09-24',
