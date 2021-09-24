@@ -17,18 +17,17 @@ mongoose.connect(`mongodb://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 
-app.post('/get-tweet/', async (req, res) => {
-    console.log(req.body)
-    const hashtag = req.body.hashtag
-    const since = Date.parse(req.body.since)
-    const until = Date.parse(req.body.until)
+app.get('/tweet/', async (req, res) => {
+    const hashtags = req.query.hashtags
+    const since = Date.parse(req.query.since)
+    const until = Date.parse(req.query.until)
 
     res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Methods', 'POST')
+    res.header('Access-Control-Allow-Methods', 'GET')
 
     const tweetData = await tweetSchema.find({
         hashtag: {
-            $in: hashtag
+            $in: hashtags
         },
         date: {
             $lte: until,
