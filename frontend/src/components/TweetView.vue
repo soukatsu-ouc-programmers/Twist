@@ -1,6 +1,6 @@
 <template>
   <div id="tweet-list">
-    <Tweet :id="'1435847868061925381'">
+    <Tweet v-for="tweet in tweets" :id="tweet.str_id" :key="tweet.str_id">
       <b-spinner variant="primary" />
     </Tweet>
   </div>
@@ -12,12 +12,27 @@ export default {
   components: {
     Tweet
   },
+  props: {
+    period: {
+      type: Object,
+      default: () => ({ since: '', until: '' })
+    },
+    hashtags: {
+      type: Array[String],
+      default: () => ['']
+    }
+  },
+  data () {
+    return {
+      tweets: []
+    }
+  },
   created () {
-    // this.fetchTweet()
+    this.fetchTweet()
   },
   methods: {
     async fetchTweet () {
-      const res = await this.$axios.get('http://localhost:3001/get-tweet/test/')
+      const res = await this.$axios.get('http://localhost:3001/tweet/', { params: { hashtags: this.$props.hashtags, since: this.period.since, until: this.period.until } })
       // プロキシのつなぎ方わかんね～～～～
       // const res = await this.$axios.get('/api/get-tweet/test')
       this.tweets = res.data
