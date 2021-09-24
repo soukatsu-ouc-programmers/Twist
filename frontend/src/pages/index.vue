@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import setting from '../assets/settings/Day1.json'
+import info from '../assets/settings/Day1.json'
 
 export default {
   data () {
@@ -46,16 +46,16 @@ export default {
   },
   methods: {
     init () {
-      this.title = setting.pageTitle
-      this.sessions = setting.sessions
-      this.rooms = setting.rooms
-      this.periods = setting.periods
+      this.title = info.pageTitle
+      this.sessions = info.sessions
+      this.rooms = info.rooms
+      this.periods = info.periods
     },
     sessionFilter (room, since) {
       return this.sessions.filter(session => (session.room === room && session.period.since === since))[0]
     },
     moveTweetPage (room, periodIndex) {
-      this.$router.push(`/${room}/${periodIndex}`)
+      this.$router.push(`/${info.date}/${room}/${periodIndex}`)
     }
   }
 }
