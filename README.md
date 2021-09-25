@@ -34,7 +34,7 @@ VSCode上の例）
 $ cd path/to/Twist/local/repository
 $ docker-compose up -d --build
 ```
-4. `localhost:3000`にアクセス
+4. `http://localhost:3000`にアクセス
 5. セッション情報ファイルの内容と同じサイトが表示されればOK
 
 ## ツイートの収集について
