@@ -1,3 +1,4 @@
+import os
 import datetime
 import tweepy
 import json
@@ -5,11 +6,12 @@ import time
 
 
 class tweet_collector():
-    def __init__(self, api_key, api_secret, access_token, access_secret):
-        self.api_key = api_key
-        self.api_secret = api_secret
-        self.access_token = access_token
-        self.access_secret = access_secret
+    
+    def __init__(self):
+        self.__api_key = os.environ['TWITTER_API_KEY']
+        self.__api_secret = os.environ['TWITTER_API_SECRET']
+        self.__access_token = os.environ['TWITTER_ACCESS_TOKEN']
+        self.__access_secret = os.environ['TWITTER_ACCESS_SECRET']
 
     def __limit_handled(self, cursor):
         while True:
