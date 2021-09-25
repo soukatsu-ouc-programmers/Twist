@@ -10,8 +10,8 @@
 ### APIキー
 - [Twitter API: Consumer Key，AccessToken (v1.1)](https://developer.twitter.com/en/docs/getting-started)
 ### セッション情報ファイル
-[こちら]()から作れます。
-（後で追記）
+[こちら](https://soukatsu-ouc-programmers.github.io/Twist/setting-maker/)から作れます。
+
 
 ## 環境構築
 1. 以下の形式で`.env`というファイルを作成し，ローカルリポジトリのルートに置く。
