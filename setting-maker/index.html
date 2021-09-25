@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <title>Twist設定ファイル作成機</title>
+  <style>
+    .table-btn {
+      width: 4rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Twist用設定ファイル作成機</h1>
+  <div id="app" class="container-fluid">
+    <button class="btn btn-success my-2" v-on:click="makeDLData">設定ファイル作成</button>
+    <a v-bind:href="dlPath" download="settings.json" class="btn btn-secondary" v-if="dlPath != ''">設定ファイルDL</a>
+    <h1><label>イベント名</label><input type="text" v-model="eventName"></h1>
+    <h2><label>ハッシュタグ</label><input type="text" v-model="mainHashtag"></h2>
+    <h2><label>公式サイト</label><input type="text" v-model="homePage"></h2>
+    <div v-for="date, dateIndex in dates">
+      <h2><input type="text" v-model="date.pageTitle"></h2>
+      <p><input type="date" v-model="date.date"></p>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 10%;"></th>
+            <th v-for="room, roomIndex in date.rooms"><input type="text" v-model="date.rooms[roomIndex]"></th>
+            <th>
+              <button class="btn btn-danger table-btn" v-on:click="deleteCol(dateIndex)">削除</button>
+              <button class="btn btn-primary table-btn" 　v-on:click="addCol(dateIndex)">追加</button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="period in date.periods">
+            <th>
+              <p><input type="time" v-model="period.since"></p>
+              <p><input type="time" v-model="period.until"></p>
+            </th>
+            <td v-for="room in date.rooms">
+              <button class="btn btn-primary" v-if="filterSession(dateIndex, room, period) == null"
+                v-on:click="addSession(dateIndex, room, period)">講演追加</button>
+              <div v-else>
+                <p>
+                  <input type="text" v-model="filterSession(dateIndex, room, period).sessionTitle">
+                </p>
+                <p>
+                  <input type="text" v-model="filterSession(dateIndex, room, period).sessionSpeaker">
+                </p>
+                <p>
+                  <input type="text" v-model="filterSession(dateIndex, room, period).hashTags[0]">
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button class="btn btn-danger table-btn" v-on:click="deleteRow(dateIndex)">削除</button><br>
+              <button class="btn btn-primary mt-1 table-btn" v-on:click="addRow(dateIndex)">追加</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="btn btn-danger" v-on:click="deleteDate">日程削除</button><br>
+    <button class="btn btn-primary mt-1" v-on:click="addDate">日程追加</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data: {
+        eventName: 'イベント',
+        mainHashtag: '#',
+        homePage: 'http://',
+        dates: [
+          {
+            date: '2021-09-24',
+            pageTitle: 'Day1',
+            rooms: ['部屋1'],
+            periods: [
+              {
+                since: '11:00',
+                until: '12:00'
+              }
+            ],
+            sessions: []
+          }
+        ],
+        dlPath: ''
+      },
+      created() {
+
+      },
+      methods: {
+        deleteCol(dateIndex) {
+          this.dates[dateIndex].rooms.pop()
+        },
+        addCol(dateIndex) {
+          this.dates[dateIndex].rooms.push('部屋')
+        },
+        deleteRow(dateIndex) {
+          this.dates[dateIndex].periods.pop()
+        },
+        addRow(dateIndex) {
+          this.dates[dateIndex].periods.push({ since: '00:00', until: '00:00' })
+        },
+        filterSession(dateIndex, room, period) {
+          return this.dates[dateIndex].sessions.filter(session => (session.room == room && session.period.since == period.since))[0]
+        },
+        addSession(dateIndex, room, period) {
+          this.dates[dateIndex].sessions.push(
+            {
+              room: room,
+              period: {
+                since: period.since,
+                until: period.until
+              },
+              hashTags: ['#'],
+              sessionTitle: '未定',
+              sessionSpeaker: '未定'
+            }
+          )
+        },
+        deleteDate() {
+          this.dates.pop()
+        },
+        addDate() {
+          this.dates.push(
+            {
+              date: '',
+              pageTitle: '',
+              rooms: ['部屋1'],
+              periods: [
+                {
+                  since: '11:00',
+                  until: '12:00'
+                }
+              ],
+              sessions: []
+            }
+          )
+        },
+        makeDLData() {
+          const mod_dates = JSON.parse(JSON.stringify(this.dates))
+          mod_dates.forEach(date => {
+            date.periods.forEach(period => {
+              period.since = `${date.date}T${period.since}:00.000+09:00`
+              period.until = `${date.date}T${period.until}:00.000+09:00`
+            })
+            date.sessions.forEach(session => {
+              session.period.since = `${date.date}T${session.period.since}:00.000+09:00`
+              session.period.until = `${date.date}T${session.period.until}:00.000+09:00`
+            })
+          })
+          const obj = {
+            eventName: this.eventName,
+            mainHashtag: this.mainHashtag,
+            homePage: this.homePage,
+            dates: mod_dates
+          }
+          this.dlPath = URL.createObjectURL(new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' }))
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
