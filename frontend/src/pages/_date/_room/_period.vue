@@ -7,20 +7,21 @@
 </template>
 
 <script>
-import setting from '../../../assets/settings/Day1.json'
+import setting from '../../../assets/settings/setting.json'
 
 export default {
   asyncData ({ params }) {
+    const dateIndex = setting.dates.findIndex(({ date }) => date === params.date)
     const room = params.room
-    const period = setting.periods[params.period]
+    const period = setting.dates[dateIndex].periods[params.period]
 
     const fullPeriod = {
       since: `${params.date}T${period.since}`,
       until: `${params.date}T${period.until}`
     }
 
-    const session = setting.sessions.filter(session => (session.room === room && session.period.since === period.since))[0]
-    return { session, roomIndex: setting.rooms.indexOf(room), fullPeriod }
+    const session = setting.dates[dateIndex].sessions.filter(session => (session.room === room && session.period.since === period.since))[0]
+    return { session, roomIndex: setting.dates[dateIndex].rooms.indexOf(room), fullPeriod }
   },
   data () {
     return {

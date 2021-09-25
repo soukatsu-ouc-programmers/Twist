@@ -4,23 +4,6 @@ const fs = require('fs')
 const buff = fs.readFileSync('/app/settings.json', 'utf8')
 const jsonSetting = JSON.parse(buff)
 
-const sessionInfo = jsonSetting.dates.map(date => (
-    {
-        name: date.pageTitle,
-        file: `${date.pageTitle}.json`
-    }
-))
-
-// イベントの情報をまとめる
-const settingObj = {
-    eventName: jsonSetting.eventName,
-    homePage: jsonSetting.homePage,
-    hashTag: jsonSetting.mainHashtag,
-    sessionInfo: sessionInfo
-}
-
-// ファイルとして保存
-fs.writeFileSync('/app/src/assets/settings/setting.json', JSON.stringify(settingObj))
 jsonSetting.dates.forEach(date => {
     date.periods.forEach(period => {
         period.since = period.since.match(/([0-9]{2}:[0-9]{2}):00/)[1]
@@ -29,6 +12,10 @@ jsonSetting.dates.forEach(date => {
     date.sessions.forEach(session => {
         session.period.since = session.period.since.match(/([0-9]{2}:[0-9]{2}):00/)[1]
         session.period.until = session.period.until.match(/([0-9]{2}:[0-9]{2}):00/)[1]
+
+        session.hashTags.forEach(tag => {
+            tag.replace('#', '')
+        })
     })
-    fs.writeFileSync(`/app/src/assets/settings/${date.pageTitle}.json`, JSON.stringify(date))
 })
+fs.writeFileSync(`/app/src/assets/settings/setting.json`, JSON.stringify(jsonSetting, null, 2))
