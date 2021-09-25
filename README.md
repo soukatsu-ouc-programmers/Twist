@@ -10,8 +10,10 @@
 ### APIキー
 - [Twitter API: Consumer Key，AccessToken (v1.1)](https://developer.twitter.com/en/docs/getting-started)
 ### セッション情報ファイル
-[こちら](https://soukatsu-ouc-programmers.github.io/Twist/setting-maker/)から作れます。
-
+[こちら](https://soukatsu-ouc-programmers.github.io/Twist/setting-maker/)から作れます。  
+例）
+![setting-maker](https://user-images.githubusercontent.com/38606036/134780504-2d165c34-3595-451f-820b-495e417988bd.png)  
+※ハッシュタグには全て`#`をつけて下さい
 
 ## 環境構築
 1. 以下の形式で`.env`というファイルを作成し，ローカルリポジトリのルートに置く。
@@ -26,9 +28,11 @@ TWITTER_ACCESS_SECRET=YOUR_TWITTER_ACCESS_SECRET_TOKEN
 ```
 例） path/to/Twist/local/repository/settings.json
 ```
-3. `docker-compose up`する。
-VSCode上の例）
-（後で追記）
+3. `docker-compose up`する。  
+VSCode上の例）  
+![vscode-composeup](https://user-images.githubusercontent.com/38606036/134780466-0dbf9542-ad26-447f-b94b-c007148f440f.png)
+
+
 コマンドの例）
 ```[bash]
 $ cd path/to/Twist/local/repository
@@ -53,3 +57,4 @@ $ docker-compose up -d --build
 
 # License
 This project is licensed under the MIT Licens
+
