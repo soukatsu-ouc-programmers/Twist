@@ -4,6 +4,7 @@ ENV HOST 0.0.0.0
 
 WORKDIR /app/src
 
+COPY ./frontend/src /app/src
 # COPY ./src/package.json /app/src/
 
 RUN apk update
