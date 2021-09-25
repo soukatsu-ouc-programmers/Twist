@@ -35,8 +35,8 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_ROOT_PASSWORD
   app:
     build:
-      context: backend
-      dockerfile: docker/app/Dockerfile
+      context: .
+      dockerfile: backend/docker/app/Dockerfile
     restart: always
     volumes: 
       - ./backend/src/app:/app/src
