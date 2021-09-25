@@ -47,7 +47,7 @@ app.get('/tweet/', async (req, res) => {
         }
     })()
 
-    const tweetData = await tweetSchema.find(query)
+    const tweetData = await tweetSchema.find(query).sort({date: 1})
 
     const resData = tweetData.map(tweet => ({ str_id: tweet._id }))
 
