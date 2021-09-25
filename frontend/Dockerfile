@@ -6,10 +6,10 @@ WORKDIR /app/src
 
 RUN apk update
 
-COPY ./settings.json /app
-COPY ./frontend/settingParser.js /app
+COPY settings.json /app
+COPY frontend/settingParser.js /app
 
-COPY ./frontend/setup.sh /app/setup.sh
+COPY frontend/setup.sh /app/setup.sh
 RUN chmod 755 /app/setup.sh
 
 CMD [ "/app/setup.sh" ]

@@ -4,12 +4,11 @@ ENV PYTHONUNBUFFERD 1
 
 RUN apt-get update
 
-# COPY ../../src/app /app/src
-COPY ./settings.json /app/settings.json
+COPY settings.json /app/settings.json
 
 WORKDIR /app/src/
 
-COPY ./backend/docker/app/setup.sh /app/setup.sh
+COPY backend/docker/app/setup.sh /app/setup.sh
 
 RUN chmod 755 /app/setup.sh
 
