@@ -260,3 +260,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+backend/src/app/collect_info.json
+frontend/src/assets/settings/*
+backend/src/app/collect_info.json
