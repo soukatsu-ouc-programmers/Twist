@@ -30,12 +30,14 @@ app.get('/tweet/', async (req, res) => {
             $in: hashtags
         },
         date: {
-            $lte: until,
-            $gte: since
+            $gte: since,
+            $lte: until
         }
     })
 
-    res.json(tweetData)
+    const resData = tweetData.map(tweet => ({str_id: tweet._id}))
+
+    res.json(resData)
 })
 
 app.listen(3000)
