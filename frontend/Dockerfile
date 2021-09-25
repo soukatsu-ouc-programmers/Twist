@@ -14,7 +14,6 @@ RUN apk update
 
 COPY ./settings.json /app
 COPY ./frontend/settingParser.js /app
-# RUN node /app/settingParser.js
 
 COPY ./frontend/setup.sh /app/setup.sh
 RUN chmod 755 /app/setup.sh

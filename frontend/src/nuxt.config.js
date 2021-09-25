@@ -7,9 +7,9 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'src',
+    title: 'Twist',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
@@ -45,13 +45,23 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@nuxtjs/proxy'
   ],
   styleResources: {
     scss: ['~/assets/scss/variable.scss', '~/assets/scss/common.scss']
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: { proxy: true },
+  proxy: {
+    '/api': {
+      target: 'http://twist_web:3000',
+      // target: 'http://localhost:3001',
+      pathRewrite: {
+        '^/api': '/'
+      }
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
