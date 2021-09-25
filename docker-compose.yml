@@ -59,8 +59,8 @@ services:
       - db
   web:
     build: 
-      context: backend
-      dockerfile: docker/web/Dockerfile
+      context: .
+      dockerfile: backend/docker/web/Dockerfile
     restart: always
     tty: true
     stdin_open: true

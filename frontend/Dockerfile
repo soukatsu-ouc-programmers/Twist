@@ -4,13 +4,7 @@ ENV HOST 0.0.0.0
 
 WORKDIR /app/src
 
-COPY ./frontend/src /app/src
-# COPY ./src/package.json /app/src/
-
 RUN apk update
-# RUN apt-get update
-# RUN apt-get update && \
-# yarn install
 
 COPY ./settings.json /app
 COPY ./frontend/settingParser.js /app

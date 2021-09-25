@@ -262,4 +262,5 @@ dmypy.json
 cython_debug/
 backend/src/app/collect_info.json
 frontend/src/assets/settings/*
+!frontend/src/assets/settings/.gitkeep
 backend/src/app/collect_info.json
