@@ -1,6 +1,10 @@
 # Twist
 オンラインイベントやカンファレンスでのハッシュタグ付きのツイートを，時間やルームで分割して見やすく公開できるサイトを簡単に作れるプロダクト
 
+
+![twist_image](https://user-images.githubusercontent.com/38606036/134790001-8b582e75-967b-4eec-adec-8b6a0f7009d0.png)
+
+
 # スタートガイド
 
 ## 準備するもの
@@ -39,7 +43,9 @@ $ cd path/to/Twist/local/repository
 $ docker-compose up -d --build
 ```
 4. `http://localhost:3000`にアクセス
-5. セッション情報ファイルの内容と同じサイトが表示されればOK
+5. セッション情報ファイルの内容と同じサイトが表示されればOK  
+![site_image](https://user-images.githubusercontent.com/38606036/134790038-4d40f921-d2f7-4f57-ac17-e6c0ac1e8b20.png)
+
 
 ## ツイートの収集について
 - ツイートの収集は各セッション終了後5分後から行われます。（終了後の感想ツイートも集めるため）  
@@ -53,8 +59,7 @@ $ docker-compose up -d --build
 お待ちください。
 
 # Copyright
-©2021 soukatsu-ouc-programmers
+Copyright (c) 2021 小樽商科大学 創作活動部
 
 # License
 This project is licensed under the MIT Licens
-
