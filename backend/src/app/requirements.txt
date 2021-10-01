@@ -1,2 +1,2 @@
 pymongo
-tweepy
+tweepy==3.10.0
